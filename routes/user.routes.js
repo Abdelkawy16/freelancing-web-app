@@ -1,0 +1,41 @@
+const router = require('express').Router()
+const userController = require('../controller/user.controller')
+const userAuth = require('../middleware/auth.middleware').userAuth
+const adminAuth = require('../middleware/auth.middleware').adminAuth
+const freelancerAuth = require('../middleware/auth.middleware').freelancerAuth
+const upload = require("../middleware/fileUpload")
+
+router.post('/register', userController.register)
+router.post('/login', userController.login)
+
+// show profile
+router.get('/profile', userAuth, userController.profile)
+
+// add Image 
+router.post('/addImg', userAuth, upload.single('img'), userController.addImg)
+
+// edit profile
+// router.get('/editProfile', auth, userController.profile)
+router.patch('/editProfile', userAuth, userController.editProfile)
+
+// search user
+router.post('/search', userAuth, userController.searchByName)
+
+// add skill, experience, socialLinks
+router.post("/addSkill", freelancerAuth, userController.addSkill)
+router.post("/addExperience", freelancerAuth, userController.addExperience)
+router.post("/addLink", userAuth, userController.addLink)
+
+// delete account
+router.delete('/del/account', userAuth, userController.delAcccount)
+
+// delete user by admin
+router.delete('/del/user/:id', adminAuth, userController.deleteUser)
+
+// delete job by admin
+router.delete('/del/job/:id', adminAuth, userController.delJob)
+
+// logout
+router.get('/logout', userAuth, userController.logout)
+
+module.exports = router
