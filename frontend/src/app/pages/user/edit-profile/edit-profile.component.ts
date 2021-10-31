@@ -18,7 +18,7 @@ export class EditProfileComponent implements OnInit {
       street: new FormControl(''),
       city: new FormControl('')
     }),
-    phone: new FormControl('')
+    phone: new FormControl('', [Validators.required])
   })
   constructor(private _global:GlobalService, private _router:Router, private toastr:ToastrService) { 
     console.log(this._global.userData)
