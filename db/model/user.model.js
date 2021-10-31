@@ -31,13 +31,11 @@ const userSchema = new mongoose.Schema({
         city: {
             type: String,
             trim: true,
-            minlength: 5,
             maxlength: 50
         },
         street: {
             type: String,
             trim: true,
-            minlength: 5,
             maxlength: 50
         }
     },
