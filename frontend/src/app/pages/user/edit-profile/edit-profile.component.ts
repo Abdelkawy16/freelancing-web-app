@@ -11,19 +11,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditProfileComponent implements OnInit {
   editForm = new FormGroup({
-    name: new FormControl(this._global.userData?.name, [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
-    email: new FormControl(this._global.userData?.email, [Validators.required, Validators.pattern('^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')]),
-    age: new FormControl(this._global.userData?.age),
+    name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20)]),
+    email: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')]),
+    age: new FormControl(''),
     location: new FormGroup({
-      street: new FormControl(this._global.userData?.location?.street),
-      city: new FormControl(this._global.userData?.location?.city)
+      street: new FormControl(''),
+      city: new FormControl('')
     }),
-    phone: new FormControl(this._global.userData?.phone)
+    phone: new FormControl('')
   })
   constructor(private _global:GlobalService, private _router:Router, private toastr:ToastrService) { 
+    console.log(this._global.userData)
   }
   
   ngOnInit(): void {
+    this._global.profile().subscribe(data=>{
+      this.editForm.patchValue(data.data)
+    })
   }
 
   editProfile(){

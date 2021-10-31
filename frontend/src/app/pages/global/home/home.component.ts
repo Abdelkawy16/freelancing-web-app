@@ -7,21 +7,20 @@ import { GlobalService } from 'src/app/providers/services/global.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  allRoles: any[] = []
-  sliders: any[] = [
-    "assets/1.jpg", "assets/2.jpg", "assets/3.jpg", "assets/4.jpg"
-  ]
+  isLoaded: boolean = false
+  articles: any[] = []
   constructor(public _global: GlobalService) { }
 
   ngOnInit(): void {
-    this.getAllRole()
+    this.getNews()
   }
 
-
-  getAllRole() {
-    this._global.getAllRoles().subscribe(data => {
-      this.allRoles = data.data
-    })
+  getNews() {
+    this._global.getNews().subscribe(data => {
+      this.articles = data.articles
+    },
+      e => { },
+      () => { this.isLoaded = true })
   }
 
 }

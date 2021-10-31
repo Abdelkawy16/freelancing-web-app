@@ -1,15 +1,12 @@
 <!-- slider -->
-<carousel>
-    <slide *ngFor="let slide of sliders">
-        <img [src]="slide" alt="first slide" style="display: block; width: 100%;">
+<carousel *ngIf="isLoaded">
+    <slide *ngFor="let article of articles">
+        <img [src]="article.urlToImage" alt="first slide" style="display: block; width: 100%;">
+        <div class="carousel-caption d-none d-md-block">
+            <h3>{{article.title}}</h3>
+            <p>{{article.description}} - <a href="{{article.url}}" target="_blank"> more...</a></p>
+          </div>
     </slide>
 </carousel>
+<br>
 <!-- end slider -->
-<section class="container">
-    <div class="row">
-        <div class="col-12 col-md-3 " *ngFor="let r of allRoles">
-            <app-card [dData]=r></app-card>
-        </div>
-    </div>
-</section>
-

@@ -22,7 +22,6 @@ import { AddskillsComponent } from './pages/user/addskills/addskills.component';
 import { AddComponent } from './pages/job/add/add.component';
 import { MyjobsComponent } from './pages/job/myjobs/myjobs.component';
 import { ShowallComponent } from './pages/job/showall/showall.component';
-import { CardComponent } from './shared/card/card.component';
 import { AuthInterceptor } from './providers/interceptors/auth.interceptor';
 import { AddexperiencesComponent } from './pages/user/addexperiences/addexperiences.component';
 import { ApplyJobComponent } from './pages/job/apply-job/apply-job.component';
@@ -46,7 +45,6 @@ import { GetProfileComponent } from './pages/user/get-profile/get-profile.compon
     AddComponent,
     MyjobsComponent,
     ShowallComponent,
-    CardComponent,
     HomeComponent,
     AddexperiencesComponent,
     ApplyJobComponent,
@@ -67,7 +65,7 @@ import { GetProfileComponent } from './pages/user/get-profile/get-profile.compon
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     ReactiveFormsModule,
-    MatTabsModule
+    MatTabsModule,
   ],
   providers: [GlobalService, {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true}],
   bootstrap: [AppComponent]

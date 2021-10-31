@@ -11,14 +11,13 @@ export class GlobalService {
   public isFreelancer = false
   public isAdmin = false
   public isClient = false
-  public imgUrl = "http://medical.marwaradwan.org/storage/app/public/"
   apiMainUrl = 'http://localhost:3000'
   // methods
   constructor(private _http: HttpClient) {
 
   }
-  getAllRoles(): Observable<any> {
-    return this._http.get('http://medical.marwaradwan.org/api/auth/loadRoles/1')
+  getNews(): Observable<any> {
+    return this._http.get('https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=de831464e1964348bea50f3dc7a85dd0')
   }
   registerUser(data: any): Observable<any> {
     return this._http.post(`${this.apiMainUrl}/register`, data)
