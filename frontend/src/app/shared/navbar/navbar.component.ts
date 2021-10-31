@@ -30,6 +30,7 @@ export class NavbarComponent implements OnInit {
       (e) => { },
       () => {
         localStorage.removeItem('Token')
+        localStorage.removeItem('userType')
         this._global.isAuthed = false
         this._global.isClient = false
         this._global.isFreelancer = false
