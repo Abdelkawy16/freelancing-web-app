@@ -11,15 +11,17 @@ router.post('/login', userController.login)
 // show profile
 router.get('/profile', userAuth, userController.profile)
 
+// get notifications
+router.get('/notifications', userAuth, userController.getNotifications)
+
 // add Image 
 router.post('/addImg', userAuth, upload.single('img'), userController.addImg)
 
-// edit profile
-// router.get('/editProfile', auth, userController.profile)
-router.patch('/editProfile', userAuth, userController.editProfile)
+// add info 
+router.post('/addInfo', userAuth, userController.addInfo)
 
-// search user
-router.post('/search', userAuth, userController.searchByName)
+// edit profile
+router.patch('/editProfile', userAuth, userController.editProfile)
 
 // add skill, experience, socialLinks
 router.post("/addSkill", freelancerAuth, userController.addSkill)
@@ -34,6 +36,12 @@ router.delete('/del/user/:id', adminAuth, userController.deleteUser)
 
 // delete job by admin
 router.delete('/del/job/:id', adminAuth, userController.delJob)
+
+// load users by admin
+router.get('/getUsers', adminAuth, userController.showAll)
+
+// show single user
+router.get('/user/:id', userAuth, userController.showSingle)
 
 // logout
 router.get('/logout', userAuth, userController.logout)

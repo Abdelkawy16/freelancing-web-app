@@ -1,4 +1,5 @@
 const Job = require('../db/model/job.model')
+const User = require('../db/model/user.model')
 
 class jobController {
     static showAll = async (req, res) => {
@@ -35,7 +36,6 @@ class jobController {
     }
     static getMyJobs = async (req, res) => {
         try {
-            // if (req.user.userType != 'client') throw new Error('only clients allowed to show their jobs')
             await req.user.populate('myJobs')
             res.send({ apiStatus: true, data: req.user.myJobs, message: "jobs loaded successfully" })
         }
@@ -59,6 +59,7 @@ class jobController {
         try {
             const job = await Job.findById(req.params.id)
             if (!job) throw new Error('job not found')
+            if(job.done == true) throw new Error('job ended successfully')
             job.offers.push({
                 freelancer: req.user._id,
                 ...req.body
@@ -72,16 +73,20 @@ class jobController {
     }
     static acceptOffer = async (req, res) => {
         try {
-            // if (req.user.userType != 'client') throw new Error('only Clients allowed to accep offers jobs')
             const job = await Job.findById(req.params.jobId)
-            if (!job) throw new Error('job not found')
+            if (!job)throw new Error('Job not found!')
             if (job.ownerId != req.user._id.toString()) throw new Error('this job belongs to another Client')
-            job.offers.forEach(offer => {
-                if (offer._id == req.params.offerId.toString()){ 
-                    offer.status = true
-                console.log("test")
-                }
-            })
+            const offer = job.offers.find(offer => offer._id == req.params.offerId.toString())
+            if (!offer) throw new Error('offer not found')
+            if(offer.status == true) throw new Error('this offer is already accepted!')
+            offer.status = true
+            const freelancer = await User.findById(offer.freelancer)
+            if (freelancer) {
+                freelancer.notifications.unshift({ msg: `${req.user.name} accepted you working on ${job.title} at ${(new Date()).toString().slice(0,25)}. please contact with him on phone number: ${req.user.phone} ASAP!` })
+                await freelancer.save()
+            }
+            job.done = true
+            job.offers = [offer]
             await job.save()
             res.send({ apiStatus: true, data: job, message: "accepted successfully" })
         }
@@ -89,9 +94,9 @@ class jobController {
             res.status(500).send({ apiStatus: false, data: e.message, message: "error accepting job" })
         }
     }
-    static searchByTitle = async (req, res)=>{
+    static searchByTitle = async (req, res) => {
         try {
-            const jobs = await Job.find({title: req.body.title})
+            const jobs = await Job.find({ title: req.body.title })
             res.send({ apiStatus: true, data: jobs, message: "jobs loaded successfully" })
         }
         catch (e) {

@@ -1,0 +1,54 @@
+<section class="container">
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Users">
+        <h1 class="fw-bold">Users</h1>
+        <input class="form-control my-3 text-center" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="user" (input)="searchUser()">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">name</th>
+                    <th scope="col">email</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of searchedUsers; let i=index">
+                    <ng-container *ngIf="user._id!=userData._id">
+                        <th scope="row">{{user._id}}</th>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td><button type="button" class="btn btn-danger" (click)="delUser(user._id, i)">delete</button></td>
+                    </ng-container>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </mat-tab>
+    <mat-tab label="Jobs">
+        <h1 class="fw-bold">Jobs</h1>
+        <input class="form-control my-3 text-center" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="job" (input)="searchJob()">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">is done</th>
+                    <th scope="col">Owner</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let job of searchedJobs; let i=index">
+                    <th scope="row">{{job._id}}</th>
+                    <td>{{ job.title }}</td>
+                    <td>{{ job.done }}</td>
+                    <td>{{ job?.ownerId }}</td>
+                    <td><button type="button" class="btn btn-danger" (click)="delJob(job._id, i)">delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </mat-tab>
+</mat-tab-group>
+</section>

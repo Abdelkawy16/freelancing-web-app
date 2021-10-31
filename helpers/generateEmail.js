@@ -8,7 +8,7 @@ const generateTxt = () =>{
             <title>Document</title>
         </head>
         <body>
-            <div style="color:red">hello</div>
+            <div style="color:red">Hello, user!</div>
         </body>
     </html>
     `

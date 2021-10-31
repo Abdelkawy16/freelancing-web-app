@@ -1,0 +1,30 @@
+<section class="container my-4">
+    <div class="row justify-content-center ">
+
+        <form class="col-md-6 col-12" [formGroup]="editForm" (ngSubmit)="editProfile()">
+            <div class="mb-3">
+                <input placeholder="name" class="form-control" formControlName="name" maxlength="20" minlength="5">
+            </div>
+            <div class="mb-3">
+                <input placeholder="email" class="form-control" formControlName="email">
+            </div>
+            <div formGroupName="location">
+                <div class="mb-3">
+                    <input placeholder="city" class="form-control" formControlName="city">
+                </div>
+                <div class="mb-3">
+                    <input placeholder="street" class="form-control" formControlName="street">
+                </div>
+            </div>
+            <div class="mb-3">
+                <input placeholder="age" class="form-control" formControlName="age" type="number" max="100" min="18">
+            </div>
+            <div class="mb-3">
+                <input placeholder="phone" class="form-control" formControlName="phone" maxlength="11" minlength="11">
+            </div>
+            <div class="mb-3 text-center">
+                <button class="btn btn-primary" [disabled]="editForm.invalid">update</button>
+            </div>
+        </form>
+    </div>
+</section>

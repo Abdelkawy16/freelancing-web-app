@@ -1,0 +1,57 @@
+<section class="container my-5">
+    <div class="row m-3 border border-primary rounded">
+        <div class="col-md-6 col-12 p-4">
+            <h3>name : {{userData.name}}</h3>
+            <p *ngIf="userData.info"> info: {{userData.info}}</p>
+            <P *ngIf="userData?.location?.city && userData?.location?.street">Location: {{userData?.location?.street}},
+                {{userData?.location?.city}}</P>
+            <p> email: {{userData.email}}</p>
+            <p *ngIf="userData.age"> age: {{userData.age}}</p>
+            <p *ngIf="userData.gender"> gender: {{userData.gender}}</p>
+            <p *ngIf="userData.phone"> phone: {{userData.phone}}</p>
+            <p> id: {{userData._id}}</p>
+            <ng-container *ngIf="userData.userType == 'freelancer'&&userData.skills.length>0">
+                <ul *ngFor="let skill of userData.skills">
+                    <h3>skills</h3>
+                    <li>{{skill}}</li>
+                </ul>
+            </ng-container>
+            <ng-container *ngIf="userData.userType == 'freelancer'&&userData.experiences.length>0">
+                <ul *ngFor="let experience of userData.experiences">
+                    <h3>experiences</h3>
+                    <li>{{experience}}</li>
+                </ul>
+            </ng-container>
+            <p> regitered at: {{userData.createdAt|date}}</p>
+            <button type="button" class="btn btn-primary mx-2 my-2" routerLink="/user/edit">edit profile</button>
+            <button type="button" class="btn btn-success mx-2 my-2" routerLink="/user/addinfo"
+                *ngIf="userData.info">edit info</button>
+            <button type="button" class="btn btn-success mx-2 my-2" routerLink="/user/addinfo"
+                *ngIf="!userData.info">add info</button>
+            <button type="button" class="btn btn-primary mx-2 my-2" routerLink="/user/addskills"
+                *ngIf="userData.userType == 'freelancer'">add skills</button>
+            <button type="button" class="btn btn-primary mx-2 my-2" routerLink="/user/addexperiences"
+                *ngIf="userData.userType == 'freelancer'">add experiences</button>
+            <button type="button" class="btn btn-danger mx-2 my-2" (click)="delMyAccount()">delete my account</button>
+        </div>
+        <div class="col-md-6 col-12 p-4">
+            <div *ngIf="userData.image">
+                <div class="row">
+                    <div class="profile-header-container">
+                        <div class="profile-header-img">
+                            <img class="img-circle" [src]="userData.image.slice(13)" />
+                        </div>
+                    </div>
+                </div>
+                <img [src]="" alt="">
+            </div>
+            <form #pimage="ngForm" (ngSubmit)="upimg()">
+                <input name="img" type="file" (change)="onChangeFile($event)" class="form-control form-control-sm"
+                    id="formFileSm">
+                <button>update image</button>
+
+            </form>
+        </div>
+    </div>
+
+</section>

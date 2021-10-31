@@ -1,0 +1,28 @@
+<section class="container my-4">
+    <div class="row justify-content-center ">
+
+        <form class="col-md-6 col-12" [formGroup]="addForm" (ngSubmit)="addJob()">
+        <div *ngIf="errLogin!=''" class="alert alert-danger">{{errLogin}}</div>
+            <div class="mb-3">
+                <input placeholder="title" class="form-control" formControlName="title">
+            </div>
+            <div formGroupName="location">
+                <div class="mb-3">
+                    <input placeholder="city" class="form-control" formControlName="city">
+                </div>
+                <div class="mb-3">
+                    <input placeholder="street" class="form-control" formControlName="street">
+                </div>
+            </div>
+            <div class="mb-3">
+                <input placeholder="cost" class="form-control" formControlName="cost" type="number">
+            </div>
+            <div class="mb-3">
+                <textarea placeholder="description" class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="description" maxlength="500"></textarea>
+            </div>
+            <div class="mb-3 text-center">
+                <button class="btn btn-primary" [disabled]="addForm.invalid">add job</button>
+            </div>
+        </form>
+    </div>
+</section>

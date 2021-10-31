@@ -1,10 +1,10 @@
 const nodemailer = require("nodemailer")
 
 const smtpConfig = {
-    service: 'yahoo',
+    service: 'gmail',
     auth: {
-        user: "mustafa_abdelkawy16@yahoo.com",
-        pass: "ngdmdgwubhmlcxvn"
+        user: "m.abdelkawy16@gmail.com",
+        pass: "test12345"
     }
 }
 

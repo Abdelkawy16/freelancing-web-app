@@ -1,0 +1,15 @@
+<!-- slider -->
+<carousel>
+    <slide *ngFor="let slide of sliders">
+        <img [src]="slide" alt="first slide" style="display: block; width: 100%;">
+    </slide>
+</carousel>
+<!-- end slider -->
+<section class="container">
+    <div class="row">
+        <div class="col-12 col-md-3 " *ngFor="let r of allRoles">
+            <app-card [dData]=r></app-card>
+        </div>
+    </div>
+</section>
+

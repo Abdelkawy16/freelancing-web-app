@@ -1,0 +1,15 @@
+<section class="container my-4">
+    <div class="row justify-content-center ">
+
+        <form class="col-md-6 col-12" [formGroup]="addForm" (ngSubmit)="addInfo()">
+            <div *ngIf="err!=''" class="alert alert-danger">{{err}}</div>
+            <div class="mb-3">
+                <textarea placeholder="your brief info" class="form-control" id="exampleFormControlTextarea1" rows="5"
+                    formControlName="info" maxlength="500"></textarea>
+            </div>
+            <div class="mb-3 text-center">
+                <button class="btn btn-primary" >save</button>
+            </div>
+        </form>
+    </div>
+</section>

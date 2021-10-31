@@ -1,0 +1,62 @@
+<div class="container my-3">
+    <form #register="ngForm" (ngSubmit)="onRegister(register)">
+        <div class="alert alert-danger" *ngIf="emailError" ngModel> {{emailError}} </div>
+        <div class="mb-3">
+            <input placeholder="Full Name" class="form-control" name="name" #name="ngModel" [(ngModel)]="user.name"  required minlength="5" maxlength="20">
+            <div *ngIf="name.invalid&&(name.touched || register.submitted || name.dirty)" class="alert alert-danger">
+                <li *ngIf="name.errors?.required">name is required</li>
+                <li *ngIf="name.errors?.minlength">name length must be greater than 5</li>
+            </div>
+        </div>
+        <div class="mb-3">
+            <input placeholder="Email address" type="email" class="form-control" aria-describedby="emailHelp" name="email" #email="ngModel" [(ngModel)]="user.email" required email pattern="^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
+            <div *ngIf="email.invalid&&(email.touched || register.submitted || email.dirty)" class="alert alert-danger">
+                <li *ngIf="email.errors?.required">email is required</li>
+                <li *ngIf="email.errors?.email || email.errors?.pattern">Invalid email</li>
+            </div>
+        </div>
+        <div class="mb-3">
+            <input placeholder="Password" type="password" class="form-control" #password="ngModel" name="password" [(ngModel)]="user.password" required minlength="8" maxlength="100">
+            <div *ngIf="password.invalid&&(password.touched || register.submitted || password.dirty)" class="alert alert-danger">
+                <li *ngIf="password.errors?.required">password is required</li>
+                <li *ngIf="password.errors?.minlength">password length must be greater than 8</li>
+            </div>
+        </div>
+        <div class="mb-3">
+            <select class="form-select" aria-label="Default select example" name="userType" #userType="ngModel" [(ngModel)]="user.userType" required>
+                <option value="" selected disabled hidden>Type</option>
+                <option value="client">Client</option>
+                <option value="freelancer">Freelancer</option>
+            </select>
+            <div *ngIf="userType.invalid&&(userType.touched || register.submitted || userType.dirty)" class="alert alert-danger">
+                <li *ngIf="userType.errors?.required">Type is required</li>
+            </div>
+        </div>
+        <div class="mb-3">
+            <select class="form-select" aria-label="Default select example" name="gender" #gender="ngModel" [(ngModel)]="user.gender">
+                <option value="" disabled selected hidden>Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            <div *ngIf="gender.invalid&&(gender.touched || register.submitted || gender.dirty)" class="alert alert-danger">
+                <li *ngIf="gender.errors?.required">Gender is required</li>
+            </div>
+        </div>
+        <div class="mb-3">
+            <input placeholder="Age" class="form-control" name="age" #age="ngModel" [(ngModel)]="user.age" type="number" min="18" max="100" >
+            <div *ngIf="age.invalid&&(age.touched || register.submitted || age.dirty)" class="alert alert-danger">
+                <li *ngIf="age.errors?.min">Age must be greater than 18</li>
+                <li *ngIf="age.errors?.max">Age must be less than 100</li>
+            </div>
+        </div>
+        <div class="mb-3">
+            <input placeholder="Phone" class="form-control" name="phone" #phone="ngModel" [(ngModel)]="user.phone" pattern="^\d{11}$">
+            <div *ngIf="phone.invalid&&(phone.touched || register.submitted || phone.dirty)" class="alert alert-danger">
+                <li *ngIf="phone.errors?.pattern">phone must be only 11 numbers</li>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <button type="submit" class="btn btn-primary" [disabled]="register.invalid">Submit</button>
+        </div>
+    </form>
+</div>

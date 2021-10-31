@@ -14,7 +14,21 @@ const jobSchema = new mongoose.Schema({
         trim: true,
         required: true,
         minlength: 5,
-        maxlength: 50
+        maxlength: 500
+    },
+    location: {
+        city: {
+            type: String,
+            trim: true,
+            minlength: 5,
+            maxlength: 50
+        },
+        street: {
+            type: String,
+            trim: true,
+            minlength: 5,
+            maxlength: 50
+        }
     },
     ownerId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -35,8 +49,9 @@ const jobSchema = new mongoose.Schema({
             duration: { type: String, required: true },
             status: { type: Boolean, default: false }
         }
-    ]
-})
+    ],
+    done:{ type: Boolean, default: false }
+}, { timestamps: true })
 
 jobSchema.methods.toJSON = function () {
     const data = this.toObject()

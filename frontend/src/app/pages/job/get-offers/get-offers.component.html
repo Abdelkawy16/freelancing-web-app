@@ -1,0 +1,36 @@
+<section class="container">
+    <div class="card container my-3">
+        <div class="card-header">
+            #{{job?._id}}
+            <span class="float-end">{{job?.createdAt|date:'medium'}}</span>
+        </div>
+        <div class="card-body">
+            <h2 class="card-title">{{job?.title}}</h2>
+            <h3 class="card-title">{{job?.location?.street}}, {{job?.location?.city}}</h3>
+            <h3 class="card-title">Expected cost: ${{job?.cost}} </h3>
+            <p class="card-text">{{job?.description}}.</p>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">freelancer</th>
+                <th scope="col">cost</th>
+                <th scope="col">duration</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let offer of offers">
+                <th scope="row">{{offer?._id}}</th>
+                <td><a routerLink="/user/{{offer.freelancer}}">{{ offer.freelancer }}</a></td>
+                <td>${{ offer.cost }}</td>
+                <td>{{ offer.duration }}</td>
+                <td><button type="button" class="btn btn-success" (click)="acceptOffer(offer?._id)">accept offer</button></td>
+            </tr>
+        </tbody>
+    </table>
+
+</section>

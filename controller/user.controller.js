@@ -5,6 +5,24 @@ const Job = require('../db/model/job.model')
 
 class userController {
     // all users
+    static showAll = async (req, res) => {
+        try {
+            const users = await User.find()
+            res.send({ apiStatus: true, data: users, message: "users loaded successfully" })
+        }
+        catch (e) {
+            res.status(500).send({ apiStatus: false, data: e.message, message: "error loading users" })
+        }
+    }
+    static showSingle = async (req, res) => {
+        try {
+            const user = await User.findById({ _id: req.params.id })
+            res.send({ apiStatus: true, data: user, message: "user loaded successfully" })
+        }
+        catch (e) {
+            res.status(500).send({ apiStatus: false, data: e.message, message: "error loading user" })
+        }
+    }
     static register = async (req, res) => {
         try {
             let user = new User(req.body)
@@ -50,7 +68,7 @@ class userController {
         } catch (e) {
             res.status(500).send({
                 apiStatus: false,
-                message: 'error in loading freelancer',
+                message: 'error in loading user',
                 data: e.message
             })
         }
@@ -137,16 +155,24 @@ class userController {
             })
         }
     }
-    static searchByName = async(req, res)=>{
+    static addInfo = async (req, res) => {
         try {
-            const users = await User.find({name: req.body.name})
-            res.send({ apiStatus: true, data: users, message: "users loaded successfully" })
+            req.user.info = req.body.info
+            await req.user.save()
+            res.status(200).send({
+                apiStatus: true,
+                data: req.user,
+                message: "added successfuly"
+            })
         }
         catch (e) {
-            res.status(500).send({ apiStatus: false, data: e.message, message: "error loading users" })
+            res.status(500).send({
+                apiStatus: false,
+                data: e.message,
+                message: "error adding Info"
+            })
         }
     }
-
     // only for freelancers
     static addSkill = async (req, res) => {
         try {
@@ -183,14 +209,28 @@ class userController {
             })
         }
     }
-
+    static getNotifications = async (req, res) => {
+        try {
+            res.status(200).send({
+                apiStatus: true,
+                data: req.user.notifications,
+                message: "notifications loaded"
+            })
+        } catch (e) {
+            res.status(500).send({
+                apiStatus: false,
+                message: 'error in loading notifications',
+                data: e.message
+            })
+        }
+    }
     // only client
     static rateFreelancer = async (req, res) => {
-        
+
     }
 
     // only Admin
-    static deleteUser = async (req, res)=>{
+    static deleteUser = async (req, res) => {
         try {
             const user = await User.findById(req.params.id)
             if (!user) throw new Error('user not found')

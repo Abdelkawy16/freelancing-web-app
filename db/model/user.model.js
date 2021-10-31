@@ -27,6 +27,20 @@ const userSchema = new mongoose.Schema({
             if (!validator.isEmail(val)) throw new Error('Invalid email!')
         }
     },
+    location: {
+        city: {
+            type: String,
+            trim: true,
+            minlength: 5,
+            maxlength: 50
+        },
+        street: {
+            type: String,
+            trim: true,
+            minlength: 5,
+            maxlength: 50
+        }
+    },
     password: {
         type: String,
         trim: true,
@@ -43,7 +57,8 @@ const userSchema = new mongoose.Schema({
     },
     age: {
         type: Number,
-        min: 18
+        min: 18,
+        max:100
     },
     rate:{
         type:Number,
@@ -70,6 +85,9 @@ const userSchema = new mongoose.Schema({
     ],
     socialLinks: [
         { website: { type: String, trim: true }, link: { type: String, trim: true } }
+    ],
+    notifications:[
+        {msg:{ type: String, trim: true}}
     ],
     tokens: [{ token: { type: String, required: true } }]
 }, { timestamps: true })

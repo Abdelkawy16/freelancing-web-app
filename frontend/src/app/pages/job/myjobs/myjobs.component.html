@@ -1,0 +1,20 @@
+<section class="container">
+    <input class="form-control my-1" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="item"
+        (input)="search()">
+    <div class="card container my-3" *ngFor="let job of searchedJob; let i=index">
+        <div class="card-header">
+            #{{job._id}}
+            <span class="badge bg-success float-end" *ngIf="job.done">Done</span>
+        </div>
+        <div class="card-body">
+            <h2 class="card-title">{{job.title}}</h2>
+            <h4 class="card-title">Location: {{job?.location?.street}}, {{job?.location?.city}}</h4>
+            <h4 class="card-title">Expected cost: ${{job.cost}} </h4>
+            <p class="card-text">{{job.description}}.</p>
+            <a href="" class="btn btn-primary mx-3" *ngIf="!job.done" routerLink="/job/offers/{{job._id}}">Go show
+                offers</a>
+            <button routerLink="job/myjobs" class="btn btn-danger" (click)="delJob(job._id, i)">Delete</button>
+        </div>
+        <div class="card-footer text-muted">{{job.createdAt|date:'medium'}}</div>
+    </div>
+</section>
