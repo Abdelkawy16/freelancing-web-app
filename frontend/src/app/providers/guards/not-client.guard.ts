@@ -11,7 +11,7 @@ export class NotClientGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot):boolean {
-      if(!this._global.isClient) {
+      if(!this._global.isClient && (localStorage.getItem('userType') != 'client')) {
         this._router.navigateByUrl("/")
         return false
       }

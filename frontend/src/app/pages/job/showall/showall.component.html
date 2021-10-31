@@ -12,7 +12,7 @@
             <h3 class="card-title">Expected cost: ${{job.cost}} </h3>
             <p class="card-text">{{job.description}}.</p>
             <a routerLink="/job/apply/{{job._id.toString()}}" class="btn btn-primary"
-                *ngIf="userData.userType=='freelancer'">Apply</a>
+                *ngIf="userType == 'freelancer'">Apply</a>
         </div>
     </div>
 </section>

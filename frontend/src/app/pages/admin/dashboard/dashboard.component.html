@@ -1,6 +1,6 @@
-<section class="container">
+<section class="container" >
 <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Users">
+    <mat-tab label="Users" *ngIf="usersLoaded">
         <h1 class="fw-bold">Users</h1>
         <input class="form-control my-3 text-center" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="user" (input)="searchUser()">
         <table class="table table-striped">
@@ -14,11 +14,11 @@
             </thead>
             <tbody>
                 <tr *ngFor="let user of searchedUsers; let i=index">
-                    <ng-container *ngIf="user._id!=userData._id">
-                        <th scope="row">{{user._id}}</th>
-                        <td>{{ user.name }}</td>
-                        <td>{{ user.email }}</td>
-                        <td><button type="button" class="btn btn-danger" (click)="delUser(user._id, i)">delete</button></td>
+                    <ng-container *ngIf="user?._id != userData._id">
+                        <th scope="row">{{user?._id}}</th>
+                        <td>{{ user?.name }}</td>
+                        <td>{{ user?.email }}</td>
+                        <td><button type="button" class="btn btn-danger" (click)="delUser(user?._id, i)">delete</button></td>
                     </ng-container>
                 </tr>
             </tbody>
@@ -26,7 +26,7 @@
 
 
     </mat-tab>
-    <mat-tab label="Jobs">
+    <mat-tab label="Jobs" *ngIf="jobsLoaded">
         <h1 class="fw-bold">Jobs</h1>
         <input class="form-control my-3 text-center" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="job" (input)="searchJob()">
         <table class="table table-striped">
@@ -41,11 +41,11 @@
             </thead>
             <tbody>
                 <tr *ngFor="let job of searchedJobs; let i=index">
-                    <th scope="row">{{job._id}}</th>
-                    <td>{{ job.title }}</td>
-                    <td>{{ job.done }}</td>
+                    <th scope="row">{{job?._id}}</th>
+                    <td>{{ job?.title }}</td>
+                    <td>{{ job?.done }}</td>
                     <td>{{ job?.ownerId }}</td>
-                    <td><button type="button" class="btn btn-danger" (click)="delJob(job._id, i)">delete</button></td>
+                    <td><button type="button" class="btn btn-danger" (click)="delJob(job?._id, i)">delete</button></td>
                 </tr>
             </tbody>
         </table>

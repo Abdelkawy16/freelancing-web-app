@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  jobsLoaded:boolean=false
+  usersLoaded:boolean=false
   userData: any
   jobs: any[] = []
   searchedJobs: any[] = []
@@ -16,18 +18,18 @@ export class DashboardComponent implements OnInit {
   searchedUsers: any[] = []
 
   job: any; user: any
-  constructor(private _global: GlobalService, private toastr: ToastrService, private _router: Router) { this.userData = _global.userData }
+  constructor(private _global: GlobalService, private toastr: ToastrService, private _router: Router) {  }
 
   ngOnInit(): void {
     this._global.getUsers().subscribe(
-      data => { this.users = data.data; console.log(data) },
+      data => { this.users = data.data },
       e => this.toastr.error('failed', e.error.data),
-      () => { this.searchedUsers = this.users }
+      () => { this.searchedUsers = this.users; this.userData = this._global.userData; this.usersLoaded=true }
     )
     this._global.getAllJobs().subscribe(
       data => { this.jobs = data.data },
       e => this.toastr.error('failed', e.error.data),
-      () => { this.searchedJobs = this.jobs }
+      () => { this.searchedJobs = this.jobs; this.jobsLoaded=true}
     )
   }
   searchJob() {

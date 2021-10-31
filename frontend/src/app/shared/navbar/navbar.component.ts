@@ -14,11 +14,11 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this._global.profile().subscribe(data => {
       this._global.isAuthed = true
-      if (data.data.userType == 'client') this._global.isClient = true
-      else if (data.data.userType == 'freelancer') this._global.isFreelancer = true
-      else if (data.data.userType == 'admin') this._global.isAdmin = true
+      if (data.data.userType == 'client') {this._global.isClient = true; localStorage.setItem("userType","client")}
+      else if (data.data.userType == 'freelancer') {this._global.isFreelancer = true; localStorage.setItem("userType","freelancer")}
+      else if (data.data.userType == 'admin') {this._global.isAdmin = true; localStorage.setItem("userType","admin")}
       this._global.userData = data.data
-      // this._global.userData.name = this._global.userData.name.slice(0, 7) + '.'
+
     },
       (e) => { this._global.isAuthed = false, this.isLoaded = true },
       () => this.isLoaded = true

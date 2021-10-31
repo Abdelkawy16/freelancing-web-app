@@ -11,7 +11,7 @@ export class NotFreelancerGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot):boolean {
-      if(!this._global.isFreelancer) {
+      if(!this._global.isFreelancer && (localStorage.getItem('userType')!= 'freelancer')) {
         this._router.navigateByUrl("/")
         return false
       }

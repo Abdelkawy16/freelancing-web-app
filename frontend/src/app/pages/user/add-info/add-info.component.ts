@@ -13,7 +13,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class AddInfoComponent implements OnInit {
   err = ''
   addForm = new FormGroup({
-    info: new FormControl(this._global.userData.info, [Validators.required, Validators.maxLength(500)])
+    info: new FormControl(this._global.userData?.info, [Validators.required, Validators.maxLength(500)])
   })
   constructor(private _global:GlobalService, private toastr:ToastrService, private _router:Router) { }
 

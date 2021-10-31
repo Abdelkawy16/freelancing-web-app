@@ -7,12 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./notifications.component.css']
 })
 export class NotificationsComponent implements OnInit {
+  isLoaded:boolean = false
   notifications:any[]=[]
   constructor(private _global:GlobalService) { }
 
   ngOnInit(): void {
-    this.notifications = this._global.userData.notifications
-    console.log(this.notifications)
+    this._global.profile().subscribe(
+      data=>{console.log(data);this.notifications = data.data.notifications},
+      e=>{},
+      ()=> this.isLoaded = true
+    )
   }
-
 }

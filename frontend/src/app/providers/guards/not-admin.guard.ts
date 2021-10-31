@@ -11,7 +11,7 @@ export class NotAdminGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot):boolean {
-      if(!this._global.isAdmin) {
+      if(!this._global.isAdmin &&localStorage.getItem('userType')!= 'admin') {
         this._router.navigateByUrl("/")
         return false
       }

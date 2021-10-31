@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./showall.component.css']
 })
 export class ShowallComponent implements OnInit {
+  userType =localStorage.getItem('userType')
   item: any = ''
   jobs: any[] = []
   data: any[] = []
