@@ -4,7 +4,7 @@ const smtpConfig = {
     service: 'gmail',
     auth: {
         user: "m.abdelkawy16@gmail.com",
-        pass: "test12345"
+        pass: ""
     }
 }
 
